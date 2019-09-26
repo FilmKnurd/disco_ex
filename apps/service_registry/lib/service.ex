@@ -40,4 +40,23 @@ defmodule ServiceRegistry.Service do
      service.status, service.profile, service.mediaType, service.healthURL, service.healthTTL,
      service.healthLast, service.bindCount, service.renewURL, service.renewTTL, service.renewLast}
   end
+
+  def from_record(record) do
+    %__MODULE__{
+      registryID: elem(record, 1),
+      serviceURL: elem(record, 2),
+      serviceName: elem(record, 3),
+      tags: elem(record, 4),
+      status: elem(record, 5),
+      profile: elem(record, 6),
+      mediaType: elem(record, 7),
+      healthURL: elem(record, 8),
+      healthTTL: elem(record, 9),
+      healthLast: elem(record, 10),
+      bindCount: elem(record, 11),
+      renewURL: elem(record, 12),
+      renewTTL: elem(record, 13),
+      renewLast: elem(record, 14)
+    }
+  end
 end

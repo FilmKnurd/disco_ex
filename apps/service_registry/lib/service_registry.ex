@@ -33,4 +33,27 @@ defmodule ServiceRegistry do
 
   def bind(id) do
   end
+
+  def get(id) do
+    {:atomic, results} =
+      Mnesia.transaction(fn ->
+        Mnesia.read({Services, id})
+      end)
+
+    case results do
+      [] -> nil
+      [record] -> Service.from_record(record)
+    end
+  end
+
+  def get_all() do
+    {:atomic, services} =
+      Mnesia.transaction(fn ->
+        Mnesia.all_keys(Services)
+      end)
+
+    services
+    |> Enum.filter(&(!is_nil(&1)))
+    |> Enum.map(&get/1)
+  end
 end
