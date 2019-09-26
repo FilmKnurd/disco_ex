@@ -1,2 +1,4 @@
-# disco_ex
-Elixir Open DISCO server
+# Disco
+
+**TODO: Add description**
+
