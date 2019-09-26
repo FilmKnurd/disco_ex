@@ -26,6 +26,18 @@ defmodule ServiceRegistry do
   end
 
   def renew(id) do
+    service =
+      id
+      |> get()
+      |> (&%Service{&1 | renewLast: DateTime.utc_now()}).()
+
+    Mnesia.transaction(fn ->
+      service
+      |> Service.to_record()
+      |> Mnesia.write()
+    end)
+
+    service
   end
 
   def find() do
