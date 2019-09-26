@@ -1,6 +1,8 @@
 defmodule WebWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :web
 
+  socket "/live", Phoenix.LiveView.Socket
+
   socket "/socket", WebWeb.UserSocket,
     websocket: true,
     longpoll: false
@@ -29,7 +31,7 @@ defmodule WebWeb.Endpoint do
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    json_decoder: Phoenix.json_library()
+    json_decoder: Jason
 
   plug Plug.MethodOverride
   plug Plug.Head

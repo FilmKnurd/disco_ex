@@ -6,7 +6,7 @@ defmodule Web.MixProject do
       app: :web,
       version: "0.1.0",
       build_path: "../../_build",
-      config_path: "../../config/config.exs",
+      config_path: "./config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
       elixir: "~> 1.5",
@@ -24,7 +24,7 @@ defmodule Web.MixProject do
   def application do
     [
       mod: {Web.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :service_registry]
     ]
   end
 
@@ -46,7 +46,11 @@ defmodule Web.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:ja_serializer, "~> 0.15.0"},
+      {:phoenix_live_view, "~> 0.3.0"},
+      {:floki, ">= 0.0.0", only: :test},
+      {:service_registry, in_umbrella: true}
     ]
   end
 
@@ -57,10 +61,10 @@ defmodule Web.MixProject do
   #
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
-    [
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
-    ]
+    #   [
+    #     "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+    #     "ecto.reset": ["ecto.drop", "ecto.setup"],
+    #     test: ["ecto.create --quiet", "ecto.migrate", "test"]
+    #   ]
   end
 end
